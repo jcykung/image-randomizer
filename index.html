@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Image Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: black;
+            color: white;
+        }
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>CAD PRACTICE</h1>
+    <button onclick="showRandomImage()">Hit me!</button>
+    <div id="imageContainer"></div>
+
+    <script>
+        // List of image filenames
+        const imageFiles = [
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_5.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_1.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_2.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_3.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_4.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_6.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_7.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_8.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_9.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_10.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_11.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_12.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_13.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_14.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_15.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_16.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_17.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_18.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_19.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_20.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_21.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_22.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_23.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_24.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_25.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_26.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_27.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_28.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_29.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_30.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_31.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_32.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_33.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_34.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_35.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_36.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_37.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_38.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_39.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_40.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_41.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_42.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_43.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_44.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_45.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_46.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_47.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_48.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_49.jpg',
+            '1738562687340-bff08e01-5ed6-416c-a8b2-355bb20b87e9_50.jpg'
+        ];
+
+        // Function to show a random image
+        function showRandomImage() {
+            const randomIndex = Math.floor(Math.random() * imageFiles.length);
+            const imageUrl = 'images/' + imageFiles[randomIndex];
+
+            // Create an image element and set its source to the random image
+            const imageElement = document.createElement('img');
+            imageElement.src = imageUrl;
+            imageElement.alt = "Random Image";
+
+            // Show the image in the image container
+            const imageContainer = document.getElementById('imageContainer');
+            imageContainer.innerHTML = ''; // Clear the current image
+            imageContainer.appendChild(imageElement);
+        }
+    </script>
+</body>
+</html>
